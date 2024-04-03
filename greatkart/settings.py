@@ -121,7 +121,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -134,3 +133,18 @@ STATICFILES_DIRS = [
 # media files configurations
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
+
+
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}
+
+
+# SMPT configurations
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'tanyarecb@gmail.com'
+EMAIL_HOST_PASSWORD = 'mjzwclbyzbxngnkh'
+EMAIL_USE_TLS = True
