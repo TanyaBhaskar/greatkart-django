@@ -143,11 +143,13 @@
 }
 
 
+
 	var amount = "{{ grand_total }}"
 	var url = "{% url 'payments' %}"
 	var csrftoken = getCookie('csrftoken');
 	var orderID = "{{order.order_number}}"
 	var payment_method = 'PayPal'
+	var redirect_url = "{% url 'order_complete' %}"
 	//Render the Paypal button into #paypal-button-container
 	paypal.Buttons({
 
@@ -175,8 +177,7 @@
 				console.log(details);
 				sendData();
 				function sendData(){
-					async function logMovies() {
-				  const response = await fetch(url, {
+					fetch(url, {
 						method: "POST",
 						headers: {
 							"Content-type": "applictaion/json",
@@ -188,13 +189,13 @@
 							payment_method: payment_method,
 							status: details.status,
 						}),
+					})
+				  .then((response) => response.json())
+				  .then((data) => {
+						window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
 					});
-				  // const movies = await response.json();
-				  // console.log(movies);
 				}
-
-				}
-			});
+			  });
 		}
 
 
